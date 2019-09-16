@@ -3,10 +3,10 @@ Simple CRUD application for managing contacts. It is developed for practicing an
 
 ## Technologies used
 For the application development, the following programming languages/tools/frameworks were used:
-- Java 11 (JDK: Amazon Corretto 11) {To be used in future version}
+- Java 11 (JDK: Amazon Corretto 11)
 - Git
-- Gradle {To be used in future version}
-- Spring Boot {To be used in future version}
+- Gradle
+- Spring Boot
 - Spring Web {To be used in future version}
 - Thymeleaf {To be used in future version}
 - JavaFX {To be used in future version}
