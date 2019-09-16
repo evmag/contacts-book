@@ -72,7 +72,7 @@ public class Contact {
         sb.append(", ");
         sb.append(dateOfBirth);
         sb.append(".");
-        
+
         return sb.toString();
     }
 
