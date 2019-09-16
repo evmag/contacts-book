@@ -2,4 +2,7 @@ apply plugin: 'org.springframework.boot'
 
 dependencies {
     compile project(':core')
+    implementation('org.springframework.boot:spring-boot-starter')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
 }
