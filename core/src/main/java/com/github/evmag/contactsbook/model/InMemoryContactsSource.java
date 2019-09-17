@@ -20,6 +20,7 @@ public class InMemoryContactsSource implements ContactsSource{
 
     // === Constructors ===
     public InMemoryContactsSource() {
+        log.trace("{} constructed...", getClass().getSimpleName());
         contacts = new ArrayList<>();
     }
 
