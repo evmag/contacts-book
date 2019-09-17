@@ -16,7 +16,10 @@ public class ConsoleInput implements Input{
     // === Public methods ===
     @Override
     public String getCommand() {
-        String command = input.nextLine();
+        String command = "";
+        if (input.hasNextLine()) {
+            command = input.nextLine();
+        }
         return command.trim().toLowerCase();
     }
 }
