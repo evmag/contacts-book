@@ -11,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -76,6 +77,10 @@ public class ContactsBookApplication implements CommandLineRunner {
                 log.debug("List command selected -> Printing list of contacts...");
                 printListOfContacts();
                 break;
+            case Commands.ADD:
+                log.debug("Add command selected -> Adding new contact...");
+                addNewContact();
+                break;
         }
     }
 
@@ -84,6 +89,32 @@ public class ContactsBookApplication implements CommandLineRunner {
 
         for (Contact contact : contacts) {
             output.printString(contact.toString());
+        }
+    }
+
+    private void addNewContact() {
+	    output.printString("Adding new contact. Enter contact details.");
+
+	    output.printString("First name: ");
+	    String firstName = input.getString();
+	    output.printString("Last name: ");
+	    String lastName = input.getString();
+        output.printString("Phone number: ");
+        String phone = input.getString();
+        output.printString("E-mail: ");
+        String email = input.getString();
+        output.printString("Birth date (yyyy-mm-dd): ");
+        LocalDate dateOfBirth = input.getDate();
+        output.printString("Notes: ");
+        String notes = input.getString();
+
+        Contact contact = new Contact(firstName, lastName, phone, email, dateOfBirth, notes);
+        int contactId = contactsBookService.addContact(contact);
+
+        if (contactId == -1) {
+            output.printString("Failed to insert contact: " + contact.toString());
+        } else {
+            output.printString("Succesfully inserted contact into position " + contactId + " : " + contact.toString());
         }
     }
 

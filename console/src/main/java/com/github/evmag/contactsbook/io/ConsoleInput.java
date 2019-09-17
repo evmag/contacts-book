@@ -4,22 +4,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 @Component
 public class ConsoleInput implements Input{
     // === Constants ===
-    private static final Logger logger = LoggerFactory.getLogger(ConsoleInput.class);
+    private static final Logger log = LoggerFactory.getLogger(ConsoleInput.class);
     private static final Scanner input = new Scanner(System.in);
 
 
     // === Public methods ===
     @Override
     public String getCommand() {
-        String command = "";
+//        String command = "";
+//        if (input.hasNextLine()) {
+//            command = input.nextLine();
+//        }
+        return getString().trim().toLowerCase();
+    }
+
+    @Override
+    public String getString() {
+        String line = "";
         if (input.hasNextLine()) {
-            command = input.nextLine();
+            line = input.nextLine();
         }
-        return command.trim().toLowerCase();
+        return line;
+    }
+
+    @Override
+    public LocalDate getDate() {
+        LocalDate date;
+        try {
+            date = LocalDate.parse(getString());
+        } catch (DateTimeException e) {
+            log.error("Error in parsing input date... {}", e.getMessage());
+            date = LocalDate.now();
+        }
+        return date;
     }
 }
