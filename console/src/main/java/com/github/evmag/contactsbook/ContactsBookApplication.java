@@ -1,6 +1,6 @@
 package com.github.evmag.contactsbook;
 
-import com.github.evmag.contactsbook.model.Contact;
+import com.github.evmag.contactsbook.io.Output;
 import com.github.evmag.contactsbook.service.ContactsBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,8 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
-
 @SpringBootApplication
 public class ContactsBookApplication implements CommandLineRunner {
     // === Constants ===
@@ -18,6 +16,8 @@ public class ContactsBookApplication implements CommandLineRunner {
 
     // === Fields ===
     private final ContactsBookService contactsBookService;
+    private final Output output;
+    private boolean running;
 
     // === Main ===
 	public static void main(String[] args) {
@@ -28,17 +28,27 @@ public class ContactsBookApplication implements CommandLineRunner {
 
     // === Constructors ===
     @Autowired
-    public ContactsBookApplication(ContactsBookService contactsBookService) {
+    public ContactsBookApplication(ContactsBookService contactsBookService, Output output) {
         this.contactsBookService = contactsBookService;
+        this.output = output;
     }
 
     // === Public methods ===
     @Override
     public void run(String... args) throws Exception {
-        List<Contact> contacts = contactsBookService.getContacts();
-
-        for (Contact contact : contacts) {
-            System.out.println(contact);
+//        List<Contact> contacts = contactsBookService.getContacts();
+//
+//        for (Contact contact : contacts) {
+//            System.out.println(contact);
+//        }
+        running = true;
+        // TODO: Display "welcome" message
+        while (running) {
+            // Display instruction
+            output.printString("Enter your command: ");
+            // TODO: Get command
+            // TODO: process command
+            running = false; // TODO: remove when EXIT command is implemented
         }
 
     }
