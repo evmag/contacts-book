@@ -1,5 +1,6 @@
 package com.github.evmag.contactsbook;
 
+import com.github.evmag.contactsbook.io.Input;
 import com.github.evmag.contactsbook.io.Output;
 import com.github.evmag.contactsbook.service.ContactsBookService;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ public class ContactsBookApplication implements CommandLineRunner {
     // === Fields ===
     private final ContactsBookService contactsBookService;
     private final Output output;
+    private final Input input;
     private boolean running;
 
     // === Main ===
@@ -28,9 +30,10 @@ public class ContactsBookApplication implements CommandLineRunner {
 
     // === Constructors ===
     @Autowired
-    public ContactsBookApplication(ContactsBookService contactsBookService, Output output) {
+    public ContactsBookApplication(ContactsBookService contactsBookService, Output output, Input input) {
         this.contactsBookService = contactsBookService;
         this.output = output;
+        this.input = input;
     }
 
     // === Public methods ===
@@ -45,8 +48,14 @@ public class ContactsBookApplication implements CommandLineRunner {
         // TODO: Display "welcome" message
         while (running) {
             // Display instruction
+            log.trace("Printing instruction...");
             output.printString("Enter your command: ");
-            // TODO: Get command
+
+            // Get command
+            log.trace("Getting user input...");
+            String command = input.getCommand();
+            log.debug("Received user input (command): {}", command);
+
             // TODO: process command
             running = false; // TODO: remove when EXIT command is implemented
         }
