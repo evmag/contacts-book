@@ -44,6 +44,7 @@ public class ContactsBookApplication implements CommandLineRunner {
 //        for (Contact contact : contacts) {
 //            System.out.println(contact);
 //        }
+        log.trace("Starting command loop...");
         running = true;
         // TODO: Display "welcome" message
         while (running) {
@@ -56,10 +57,22 @@ public class ContactsBookApplication implements CommandLineRunner {
             String command = input.getCommand();
             log.debug("Received user input (command): {}", command);
 
-            // TODO: process command
-            running = false; // TODO: remove when EXIT command is implemented
+            // Process command
+            log.trace("Processing command...");
+            processCommand(command);
         }
+        log.trace("Command loop finished...");
 
+    }
+
+    // === Private methods ===
+    private void processCommand(String command) {
+	    switch (command) {
+            case Commands.EXIT:
+                log.debug("Exit command selected -> Exiting application...");
+                running = false;
+                break;
+        }
     }
 
 }
