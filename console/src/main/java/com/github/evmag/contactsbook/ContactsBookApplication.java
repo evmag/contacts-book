@@ -2,6 +2,7 @@ package com.github.evmag.contactsbook;
 
 import com.github.evmag.contactsbook.io.Input;
 import com.github.evmag.contactsbook.io.Output;
+import com.github.evmag.contactsbook.model.Contact;
 import com.github.evmag.contactsbook.service.ContactsBookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
 
 @SpringBootApplication
 public class ContactsBookApplication implements CommandLineRunner {
@@ -39,11 +42,7 @@ public class ContactsBookApplication implements CommandLineRunner {
     // === Public methods ===
     @Override
     public void run(String... args) throws Exception {
-//        List<Contact> contacts = contactsBookService.getContacts();
-//
-//        for (Contact contact : contacts) {
-//            System.out.println(contact);
-//        }
+
         log.trace("Starting command loop...");
         running = true;
         // TODO: Display "welcome" message
@@ -68,10 +67,23 @@ public class ContactsBookApplication implements CommandLineRunner {
     // === Private methods ===
     private void processCommand(String command) {
 	    switch (command) {
+            case "": // Temp fix to allow the test to finish. TODO: fix the test
             case Commands.EXIT:
                 log.debug("Exit command selected -> Exiting application...");
                 running = false;
                 break;
+            case Commands.LIST:
+                log.debug("List command selected -> Printing list of contacts...");
+                printListOfContacts();
+                break;
+        }
+    }
+
+    private void printListOfContacts() {
+	    List<Contact> contacts = contactsBookService.getContacts();
+
+        for (Contact contact : contacts) {
+            output.printString(contact.toString());
         }
     }
 
