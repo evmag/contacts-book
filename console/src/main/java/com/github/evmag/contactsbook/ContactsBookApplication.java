@@ -81,6 +81,10 @@ public class ContactsBookApplication implements CommandLineRunner {
                 log.debug("Add command selected -> Adding new contact...");
                 addNewContact();
                 break;
+            case Commands.REMOVE:
+                log.debug("Remove command selected -> Removing contact...");
+                removeContact();
+                break;
         }
     }
 
@@ -114,7 +118,36 @@ public class ContactsBookApplication implements CommandLineRunner {
         if (contactId == -1) {
             output.printString("Failed to insert contact: " + contact.toString());
         } else {
-            output.printString("Succesfully inserted contact into position " + contactId + " : " + contact.toString());
+            output.printString("Successfully inserted contact into position " + contactId + " : " + contact.toString());
+        }
+    }
+
+    private void removeContact() {
+	    output.printString("Removing contact. Enter the Id of the contact to be removed.");
+
+	    output.printString("Contact Id: ");
+	    int contactId = input.getInt();
+
+	    if (contactId == -1) {
+	        output.printString("Id provided is not a valid contact Id.");
+	        return;
+        }
+        log.debug("Removing contact... Id selected: {}", contactId);
+	    Contact contact = contactsBookService.getContact(contactId);
+	    log.debug("Retrieved contact to be removed: {}", contact);
+
+	    if (contact == null) {
+	        log.debug("No contact found with Id = {}", contactId);
+	        output.printString("No contact found with Id = " + contactId);
+            return;
+        }
+
+	    if(contactsBookService.removeContact(contactId)) {
+	        log.debug("Removed contact: {}", contact);
+	        output.printString("Succesfully removed contact: " + contact);
+        } else {
+	        log.debug("Could not remove contact: {}", contact);
+	        output.printString("Failed to remove contact: " + contact);
         }
     }
 

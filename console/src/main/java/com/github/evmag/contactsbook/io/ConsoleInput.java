@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @Component
@@ -44,5 +45,17 @@ public class ConsoleInput implements Input{
             date = LocalDate.now();
         }
         return date;
+    }
+
+    @Override
+    public int getInt() {
+        int value;
+        try {
+            value = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            value = -1; // Return -1 TODO: handle this differently?
+        }
+        return value;
     }
 }

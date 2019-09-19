@@ -11,6 +11,9 @@ public final class Commands {
     public static final String ADD = "add";
     public static final String ADD_DESC = "Add a new contact to the list.";
 
+    public static final String REMOVE = "remove";
+    public static final String REMOVE_DESK = "Remove specified contact from the list.";
+
     // === Constructors ===
     // Disable public constructors
     private Commands() {};

@@ -6,4 +6,5 @@ public interface Input {
     String getCommand();
     String getString();
     LocalDate getDate();
+    int getInt();
 }
