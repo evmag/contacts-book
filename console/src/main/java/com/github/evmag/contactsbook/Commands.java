@@ -12,10 +12,13 @@ public final class Commands {
     public static final String ADD_DESC = "Add a new contact to the list.";
 
     public static final String REMOVE = "remove";
-    public static final String REMOVE_DESK = "Remove specified contact from the list.";
+    public static final String REMOVE_DESC = "Remove specified contact from the list.";
 
     public static final String HELP = "help";
-    public static final String HELP_DESK = "Prints a list with all available commands.";
+    public static final String HELP_DESC = "Prints a list with all available commands.";
+
+    public static final String EDIT = "edit";
+    public static final String EDIT_DESC = "Edit an existing contact.";
 
     // === Constructors ===
     // Disable public constructors

@@ -79,7 +79,7 @@ public class InMemoryContactsSource implements ContactsSource{
         if (!contacts.contains(contactToEdit) || (contactToEdit.getId() != contactEdited.getId())) {
             return false;
         }
-        contacts.set(contactToEdit.getId(), contactEdited);
+        contacts.set(contacts.indexOf(contactToEdit), contactEdited);
         return true;
     }
 

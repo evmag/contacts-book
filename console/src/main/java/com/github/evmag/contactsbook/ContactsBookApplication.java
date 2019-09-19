@@ -89,6 +89,14 @@ public class ContactsBookApplication implements CommandLineRunner {
                 log.debug("Help command selected -> Printing list of commands...");
                 printListOfCommands();
                 break;
+            case Commands.EDIT:
+                log.debug("Edit command selected -> Editing and existing contact...");
+                editContact();
+                break;
+            default:
+                log.debug("Unknown command selected: {}", command);
+                output.printString(command + " is not a valid command. Type '" + Commands.HELP + "' for a list of available commands");
+                break;
         }
     }
 
@@ -155,14 +163,67 @@ public class ContactsBookApplication implements CommandLineRunner {
         }
     }
 
+    private void editContact() {
+	    // TODO: refactor to remove duplicate code from removeContact() and addContact()
+        output.printString("Editing contact. Enter the Id of the contact to be edited.");
+
+        // Retrieve contact to be edited
+        output.printString("Contact Id: ");
+        int contactId = input.getInt();
+
+        if (contactId == -1) {
+            output.printString("Id provided is not a valid contact Id.");
+            return;
+        }
+        log.debug("Editing contact... Id selected: {}", contactId);
+        Contact contact = contactsBookService.getContact(contactId);
+        log.debug("Retrieved contact to be edited: {}", contact);
+
+        if (contact == null) {
+            log.debug("No contact found with Id = {}", contactId);
+            output.printString("No contact found with Id = " + contactId);
+            return;
+        }
+
+        // Get new values for the contact
+        output.printString("Selected contact to edit: " + contact);
+        output.printString("Enter new values.");
+        output.printString("First name: ");
+        String firstName = input.getString();
+        output.printString("Last name: ");
+        String lastName = input.getString();
+        output.printString("Phone number: ");
+        String phone = input.getString();
+        output.printString("E-mail: ");
+        String email = input.getString();
+        output.printString("Birth date (yyyy-mm-dd): ");
+        LocalDate dateOfBirth = input.getDate();
+        output.printString("Notes: ");
+        String notes = input.getString();
+
+        Contact contactEdited = new Contact(firstName, lastName, phone, email, dateOfBirth, notes);
+        contactEdited.setId(contact.getId());
+
+        // Update the contact
+        if (contactsBookService.editContact(contact, contactEdited)) {
+            log.debug("Edited contact: {}, new value: {}", contact, contactEdited);
+            output.printString("Successfully updated contact.");
+        } else {
+            log.debug("Failed to edit contact: {}, new value: {}", contact, contactEdited);
+            output.printString("Failed to edit contact.");
+        }
+
+    }
+
     private void printListOfCommands() {
 	    output.printString("List of available commands:");
 	    output.printString("-----------------------------------------");
 	    output.printString(Commands.ADD + "\t\t:" + Commands.ADD_DESC);
         output.printString(Commands.EXIT + "\t:" + Commands.EXIT_DESC);
-        output.printString(Commands.HELP + "\t:" + Commands.HELP_DESK);
+        output.printString(Commands.HELP + "\t:" + Commands.HELP_DESC);
         output.printString(Commands.LIST + "\t:" + Commands.LIST_DESC);
-        output.printString(Commands.REMOVE + "\t:" + Commands.REMOVE_DESK);
+        output.printString(Commands.REMOVE + "\t:" + Commands.REMOVE_DESC);
+        output.printString(Commands.EDIT + "\t:" + Commands.EDIT_DESC);
     }
 
 }
