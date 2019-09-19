@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class InMemoryContactsSource implements ContactsSource{
@@ -17,6 +18,7 @@ public class InMemoryContactsSource implements ContactsSource{
 
     // === Fields ==
     private final List<Contact> contacts;
+    private static int currId = 0;
 
     // === Constructors ===
     public InMemoryContactsSource() {
@@ -48,16 +50,16 @@ public class InMemoryContactsSource implements ContactsSource{
 
     @Override
     public Contact getContact(int contactId) {
-        return contacts.get(contactId);
+        Optional<Contact> contact  = contacts.stream().filter(c -> c.getId() == contactId).findAny();
+        return (contact.isPresent()) ? contact.get() : null;
     }
 
     @Override
     public int addContact(Contact contact) {
         if (!contacts.contains(contact)) {
             contacts.add(contact);
-            int contactId = contacts.indexOf(contact);
-            contact.setId(contactId);
-            return contactId;
+            contact.setId(currId);
+            return currId++;
         }
         return -1;
     }
@@ -69,7 +71,7 @@ public class InMemoryContactsSource implements ContactsSource{
 
     @Override
     public boolean removeContact(int contactId) {
-        return (contacts.remove(contactId) != null);
+        return contacts.removeIf(c -> c.getId() == contactId);
     }
 
     @Override

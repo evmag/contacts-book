@@ -52,10 +52,11 @@ public class ConsoleInput implements Input{
         int value;
         try {
             value = input.nextInt();
-            input.nextLine();
+
         } catch (InputMismatchException e) {
             value = -1; // Return -1 TODO: handle this differently?
         }
+        input.nextLine();
         return value;
     }
 }
