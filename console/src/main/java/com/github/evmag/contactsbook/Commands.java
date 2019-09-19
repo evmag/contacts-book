@@ -14,6 +14,9 @@ public final class Commands {
     public static final String REMOVE = "remove";
     public static final String REMOVE_DESK = "Remove specified contact from the list.";
 
+    public static final String HELP = "help";
+    public static final String HELP_DESK = "Prints a list with all available commands.";
+
     // === Constructors ===
     // Disable public constructors
     private Commands() {};

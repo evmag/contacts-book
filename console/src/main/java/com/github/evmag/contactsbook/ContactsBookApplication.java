@@ -85,6 +85,10 @@ public class ContactsBookApplication implements CommandLineRunner {
                 log.debug("Remove command selected -> Removing contact...");
                 removeContact();
                 break;
+            case Commands.HELP:
+                log.debug("Help command selected -> Printing list of commands...");
+                printListOfCommands();
+                break;
         }
     }
 
@@ -149,6 +153,16 @@ public class ContactsBookApplication implements CommandLineRunner {
 	        log.debug("Could not remove contact: {}", contact);
 	        output.printString("Failed to remove contact: " + contact);
         }
+    }
+
+    private void printListOfCommands() {
+	    output.printString("List of available commands:");
+	    output.printString("-----------------------------------------");
+	    output.printString(Commands.ADD + "\t\t:" + Commands.ADD_DESC);
+        output.printString(Commands.EXIT + "\t:" + Commands.EXIT_DESC);
+        output.printString(Commands.HELP + "\t:" + Commands.HELP_DESK);
+        output.printString(Commands.LIST + "\t:" + Commands.LIST_DESC);
+        output.printString(Commands.REMOVE + "\t:" + Commands.REMOVE_DESK);
     }
 
 }
