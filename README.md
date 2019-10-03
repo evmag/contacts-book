@@ -19,7 +19,6 @@ The project consists of 4 modules: core, console, web and desktop.
 This module contains the data model and services the data to the other modules.
 
 ### console
-{Not yet implemented}
 This module contains a simple console interface for the application, primarily used for testing.
 
 ## web
