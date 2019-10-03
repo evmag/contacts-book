@@ -15,7 +15,6 @@ For the application development, the following programming languages/tools/frame
 The project consists of 4 modules: core, console, web and desktop.
 
 ### core module
-{Not yet implemented}
 This module contains the data model and services the data to the other modules.
 
 ### console
