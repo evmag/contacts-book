@@ -1,4 +1,5 @@
 rootProject.name = 'contacts-book'
 include 'core'
 include 'console'
+include 'web'
 
