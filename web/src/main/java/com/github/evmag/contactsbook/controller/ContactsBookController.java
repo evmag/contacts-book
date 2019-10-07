@@ -15,9 +15,15 @@ public class ContactsBookController {
         this.contactsBookService = contactsBookService;
     }
 
-    @GetMapping("test")
+    @GetMapping("/contacts-book")
+    public String showAllContacts(Model model) {
+        model.addAttribute("contacts", contactsBookService.getContacts());
+        return "contactsbook/display_contacts";
+    }
+
+    @GetMapping("/test")
     public String test(Model model) {
-        model.addAttribute("message", "Thymeleaf test succesfull.");
+        model.addAttribute("message", "Thymeleaf test successful.");
         return "test/test";
     }
 }
