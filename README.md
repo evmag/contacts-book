@@ -7,8 +7,8 @@ For the application development, the following programming languages/tools/frame
 - Git
 - Gradle
 - Spring Boot
-- Spring Web {To be used in future version}
-- Thymeleaf {To be used in future version}
+- Spring Web 
+- Thymeleaf 
 - JavaFX {To be used in future version}
 
 ## Project structure
