@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ContactsBookController {
@@ -19,6 +20,12 @@ public class ContactsBookController {
     public String showAllContacts(Model model) {
         model.addAttribute("contacts", contactsBookService.getContacts());
         return "contactsbook/display_contacts";
+    }
+
+    @GetMapping("/remove")
+    public String removeContact(@RequestParam int id) {
+        contactsBookService.removeContact(id);
+        return "redirect:/contacts-book";
     }
 
     @GetMapping("/test")
