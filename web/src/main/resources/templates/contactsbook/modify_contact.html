@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts Book</title>
+</head>
+<body>
+<h1>Modify Contact</h1>
+<div>
+    <form action="#" th:action="@{/process_contact}" th:object="${contact}" method="post" id="modifyContactForm">
+        <div>
+            <label for="id">Id</label>
+            <input type="number" id="id" th:field="*{id}" disabled="true"/>
+        </div>
+        <div>
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" th:field="*{firstName}"/>
+        </div>
+        <div>
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" th:field="*{lastName}"/>
+        </div>
+        <div>
+            <label for="phone">Phone number</label>
+            <input type="text" id="phone" th:field="*{phone}"/>
+        </div>
+        <div>
+            <label for="email">E-mail</label>
+            <input type="text" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <label for="dateOfBirth">Date of birth</label>
+            <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}"/>
+        </div>
+        <div>
+            <label for="notes">Notes</label>
+            <textarea id="notes" rows = "5" cols = "20" th:field = "*{notes}" form = "modifyContactForm" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.github.evmag.contactsbook.controller;
 
+import com.github.evmag.contactsbook.model.Contact;
 import com.github.evmag.contactsbook.service.ContactsBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,13 @@ public class ContactsBookController {
     public String removeContact(@RequestParam int id) {
         contactsBookService.removeContact(id);
         return "redirect:/contacts-book";
+    }
+
+    @GetMapping("/edit")
+    public String addEditContact(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+        Contact contact = contactsBookService.getContact(id);
+        model.addAttribute("contact", contact);
+        return "contactsbook/modify_contact";
     }
 
     @GetMapping("/test")
