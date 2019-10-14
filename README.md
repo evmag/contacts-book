@@ -21,7 +21,6 @@ This module contains the data model and services the data to the other modules.
 This module contains a simple console interface for the application, primarily used for testing.
 
 ## web
-{Not yet implemented}
 This module contains a web interface for the application using Spring web and Thymeleaf.
 
 ## desktop
