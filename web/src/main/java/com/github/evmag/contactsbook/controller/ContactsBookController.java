@@ -14,13 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ContactsBookController {
-    private final ContactsBookService contactsBookService;
+    // === Fields ===
+
     private static final Logger log = LoggerFactory.getLogger(ContactsBookController.class);
+    private final ContactsBookService contactsBookService;
+
+    // === Constructors ===
 
     @Autowired
     public ContactsBookController(ContactsBookService contactsBookService) {
+        log.trace("ContactsBookController constructed.");
         this.contactsBookService = contactsBookService;
     }
+
+    // === Mappings ===
 
     @GetMapping({"/","/contacts-book"})
     public String showAllContacts(Model model) {
@@ -30,32 +37,49 @@ public class ContactsBookController {
 
     @GetMapping("/remove")
     public String removeContact(@RequestParam int id) {
-        contactsBookService.removeContact(id);
-        return "redirect:/contacts-book";
+        log.trace("Removing contact with id = {}", id);
+        boolean result = contactsBookService.removeContact(id);
+        log.trace("Removed contact with id = {} : {}", id, result);
+
+        // Redirect to main page
+        return "redirect:/";
     }
 
     @GetMapping({"/edit", "/add"})
     public String addEditContact(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+        log.trace("Modifying contact with id = {}", id);
         Contact contact = contactsBookService.getContact(id);
+
         if(contact == null) {
+            // No existing contact found - adding a new contact
+            // Create a new contact with id -1 to add to the model
+            log.trace("No existing contact with id = {} found. Creating new contact.", id);
             contact = new Contact();
             contact.setId(-1);
         }
+
+        log.trace("Adding contact to the model: {}", contact);
         model.addAttribute("contact", contact);
         return "contactsbook/modify_contact";
     }
 
     @PostMapping("/process_contact")
     public String processContact(@ModelAttribute("contact") Contact contact) {
-        log.debug("Received contact for processing: {}", contact);
+        log.trace("Received contact for processing: {}", contact);
         if (contact.getId() == -1) {
-            contactsBookService.addContact(contact);
+            log.trace("Adding new contact.");
+            int newId = contactsBookService.addContact(contact);
+            boolean result = (newId != -1);
+            log.trace("Adding new contact result: {}. New id = {}", result, newId);
         } else {
-            contactsBookService.editContact(contact, contact);
+            log.trace("Editing contact: {}", contact);
+            boolean result = contactsBookService.editContact(contact, contact);
+            log.trace("Editing result: {}", result);
         }
         return "redirect:/";
     }
 
+    // Test mapping TODO: remove
     @GetMapping("/test")
     public String test(Model model) {
         model.addAttribute("message", "Thymeleaf test successful.");
