@@ -7,6 +7,9 @@
 <body>
 <h1>Contacts Book</h1>
 <div>
+    <a th:href="@{/add}">Add new</a>
+</div>
+<div>
     <table>
         <thead>
             <tr>
@@ -17,17 +20,19 @@
                 <th>E-mail</th>
                 <th>Date of birth</th>
                 <th>Notes</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="contact : ${contacts}">
-                <td><span th:text="${contact.id}">Id</span></td>
+                <td><a th:href="@{/edit(id=${contact.id})}"><span th:text="${contact.id}">Id</span></a></td>
                 <td><span th:text="${contact.firstName}">First Name</span></td>
                 <td><span th:text="${contact.lastName}">Last Name</span></td>
                 <td><span th:text="${contact.phone}">Phone</span></td>
                 <td><span th:text="${contact.email}">E-mail</span></td>
                 <td><span th:text="${contact.dateOfBirth}">Date Of Birth</span></td>
                 <td><span th:text="${contact.notes}">Notes</span></td>
+                <td><a th:href="@{/remove(id=${contact.id})}">X</a></td>
             </tr>
         </tbody>
     </table>

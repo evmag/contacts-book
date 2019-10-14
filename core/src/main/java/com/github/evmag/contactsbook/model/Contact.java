@@ -1,5 +1,7 @@
 package com.github.evmag.contactsbook.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Contact {
@@ -9,6 +11,7 @@ public class Contact {
     private String lastName;
     private String phone;
     private String email;
+    @DateTimeFormat(pattern = "yyyy-MM-dd") // Required for displaying the date with Thymeleaf in HTML date form
     private LocalDate dateOfBirth;
     private String notes;
 
