@@ -1,5 +1,7 @@
 package com.github.evmag.contactsbook.controller;
 
+import com.github.evmag.contactsbook.config.Mappings;
+import com.github.evmag.contactsbook.config.Views;
 import com.github.evmag.contactsbook.model.Contact;
 import com.github.evmag.contactsbook.service.ContactsBookService;
 import org.slf4j.Logger;
@@ -29,23 +31,23 @@ public class ContactsBookController {
 
     // === Mappings ===
 
-    @GetMapping({"/","/contacts-book"})
+    @GetMapping({Mappings.ROOT, Mappings.CONTACTS_BOOK})
     public String showAllContacts(Model model) {
         model.addAttribute("contacts", contactsBookService.getContacts());
-        return "contactsbook/display_contacts";
+        return Views.DISPLAY_CONTACTS;
     }
 
-    @GetMapping("/remove")
+    @GetMapping(Mappings.REMOVE)
     public String removeContact(@RequestParam int id) {
         log.trace("Removing contact with id = {}", id);
         boolean result = contactsBookService.removeContact(id);
         log.trace("Removed contact with id = {} : {}", id, result);
 
         // Redirect to main page
-        return "redirect:/";
+        return "redirect:" + Mappings.ROOT;
     }
 
-    @GetMapping({"/edit", "/add"})
+    @GetMapping({Mappings.EDIT, Mappings.ADD}) //TODO: Add cancel
     public String addEditContact(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
         log.trace("Modifying contact with id = {}", id);
         Contact contact = contactsBookService.getContact(id);
@@ -60,10 +62,10 @@ public class ContactsBookController {
 
         log.trace("Adding contact to the model: {}", contact);
         model.addAttribute("contact", contact);
-        return "contactsbook/modify_contact";
+        return Views.MODIFY_CONTACT;
     }
 
-    @PostMapping("/process_contact")
+    @PostMapping(Mappings.PROCESS)
     public String processContact(@ModelAttribute("contact") Contact contact) {
         log.trace("Received contact for processing: {}", contact);
         if (contact.getId() == -1) {
@@ -76,13 +78,13 @@ public class ContactsBookController {
             boolean result = contactsBookService.editContact(contact, contact);
             log.trace("Editing result: {}", result);
         }
-        return "redirect:/";
+        return "redirect:" + Mappings.ROOT;
     }
 
     // Test mapping TODO: remove
-    @GetMapping("/test")
+    @GetMapping(Mappings.TEST)
     public String test(Model model) {
         model.addAttribute("message", "Thymeleaf test successful.");
-        return "test/test";
+        return Views.TEST;
     }
 }
