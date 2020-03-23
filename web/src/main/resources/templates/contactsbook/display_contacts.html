@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Contacts Book</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
 </head>
 <body>
-<h1>Contacts Book</h1>
-<div>
-    <a th:href="@{/add}">Add new</a>
+<header class="w3-blue-grey w3-center">
+    <h2>Contacts Book</h2>
+</header>
+
+<div class="w3-container">
+    <br/>
+    <a th:href="@{/add}" class="w3-button w3-blue">Add new</a>
+    <br/>
 </div>
-<div>
-    <table>
+<div class="w3-container">
+    <table class="w3-table-all w3-hoverable">
         <thead>
-            <tr>
+            <tr class="w3-blue">
                 <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -20,7 +27,7 @@
                 <th>E-mail</th>
                 <th>Date of birth</th>
                 <th>Notes</th>
-                <th>Delete</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -32,7 +39,7 @@
                 <td><span th:text="${contact.email}">E-mail</span></td>
                 <td><span th:text="${contact.dateOfBirth}">Date Of Birth</span></td>
                 <td><span th:text="${contact.notes}">Notes</span></td>
-                <td><a th:href="@{/remove(id=${contact.id})}">X</a></td>
+                <td><a th:href="@{/remove(id=${contact.id})}" class="w3-button w3-circle w3-blue">X</a></td>
             </tr>
         </tbody>
     </table>
