@@ -3,41 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Contacts Book</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
-<h1>Modify Contact</h1>
-<div>
-    <form action="#" th:action="@{/process_contact}" th:object="${contact}" method="post" id="modifyContactForm">
+<header class="w3-blue-grey w3-center">
+    <h2>Contacts Book</h2>
+</header>
+<div class="w3-container">
+    <form action="#" th:action="@{/process_contact}" th:object="${contact}" method="post" id="modifyContactForm" class="w3-container w3-card-4">
+        <h2>Add/Modify contact</h2>
         <div>
             <label for="id">Id</label>
-            <input type="number" id="id" th:field="*{id}" readonly="true"/>
+            <input class="w3-input" type="number" id="id" th:field="*{id}" readonly="true"/>
         </div>
         <div>
             <label for="firstName">First name</label>
-            <input type="text" id="firstName" th:field="*{firstName}"/>
+            <input class="w3-input" type="text" id="firstName" th:field="*{firstName}"/>
         </div>
         <div>
             <label for="lastName">Last name</label>
-            <input type="text" id="lastName" th:field="*{lastName}"/>
+            <input class="w3-input" type="text" id="lastName" th:field="*{lastName}"/>
         </div>
         <div>
             <label for="phone">Phone number</label>
-            <input type="text" id="phone" th:field="*{phone}"/>
+            <input class="w3-input" type="text" id="phone" th:field="*{phone}"/>
         </div>
         <div>
             <label for="email">E-mail</label>
-            <input type="text" id="email" th:field="*{email}"/>
+            <input class="w3-input" type="text" id="email" th:field="*{email}"/>
         </div>
         <div>
             <label for="dateOfBirth">Date of birth</label>
-            <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}"/>
+            <input class="w3-input" type="date" id="dateOfBirth" th:field="*{dateOfBirth}"/>
         </div>
         <div>
             <label for="notes">Notes</label>
-            <textarea id="notes" rows = "5" cols = "20" th:field = "*{notes}" form = "modifyContactForm" />
+            <textarea class="w3-input" id="notes" rows = "5" cols = "20" th:field = "*{notes}" form = "modifyContactForm" />
         </div>
         <div>
-            <input type="submit" value="Submit"/>
+            <input class="w3-input" type="submit" value="Submit"/>
         </div>
     </form>
 </div>
