@@ -45,6 +45,8 @@ public class AOPLogger {
     @AfterReturning(pointcut = "allPackages()", returning = "result")
     public void logMethodReturned(JoinPoint joinPoint, Object result) {
         log.trace("Method returned: " + joinPoint.getSignature().toShortString());
-        log.trace("Returned object: " + result.toString());
+        if (result != null) {
+            log.trace("Returned object: " + result.toString());
+        }
     }
 }
