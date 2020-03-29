@@ -19,9 +19,18 @@ public class AOPLogger {
     @Pointcut("execution(* com.github.evmag.contactsbook.service.*.*(..))")
     private void servicePackage() {};
 
+    // Pointcut for all methods in all classes in controller package
+    @Pointcut("execution(* com.github.evmag.contactsbook.controller.*.*(..))")
+    private void controllerPackage() {};
+
+
+    // Combine all packages
+    @Pointcut("servicePackage() || controllerPackage()")
+    private void allPackages() {};
+
     // === Advices ===
     // Method called logging advice
-    @Before("servicePackage()")
+    @Before("allPackages()")
     public void logMethodCall(JoinPoint joinPoint) {
         log.trace("Method called: " + joinPoint.getSignature().toShortString());
 

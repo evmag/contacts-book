@@ -39,7 +39,6 @@ public class ContactsBookController {
 
     @GetMapping(Mappings.REMOVE)
     public String removeContact(@RequestParam int id) {
-        log.trace("Removing contact with id = {}", id);
         boolean result = contactsBookService.removeContact(id);
         log.trace("Removed contact with id = {} : {}", id, result);
 
@@ -49,7 +48,6 @@ public class ContactsBookController {
 
     @GetMapping({Mappings.EDIT, Mappings.ADD}) //TODO: Add cancel
     public String addEditContact(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
-        log.trace("Modifying contact with id = {}", id);
         Contact contact = contactsBookService.getContact(id);
 
         if(contact == null) {
@@ -67,7 +65,7 @@ public class ContactsBookController {
 
     @PostMapping(Mappings.PROCESS)
     public String processContact(@ModelAttribute("contact") Contact contact) {
-        log.trace("Received contact for processing: {}", contact);
+        // log.trace("Received contact for processing: {}", contact);
         if (contact.getId() == -1) {
             log.trace("Adding new contact.");
             int newId = contactsBookService.addContact(contact);
