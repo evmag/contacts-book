@@ -1,6 +1,7 @@
 package com.github.evmag.contactsbook.aoplogging;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -38,5 +39,12 @@ public class AOPLogger {
         for (int i=0; i < args.length; i++) {
             log.trace("Argument #" + i + " : " + args[i].toString());
         }
+    }
+
+    // Method returned logging advice
+    @AfterReturning(pointcut = "allPackages()", returning = "result")
+    public void logMethodReturned(JoinPoint joinPoint, Object result) {
+        log.trace("Method returned: " + joinPoint.getSignature().toShortString());
+        log.trace("Returned object: " + result.toString());
     }
 }
