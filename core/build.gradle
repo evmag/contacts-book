@@ -1,6 +1,10 @@
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'mysql:mysql-connector-java'
+
     compile('org.springframework:spring-aop')
     compile('org.aspectj:aspectjweaver')
 }
