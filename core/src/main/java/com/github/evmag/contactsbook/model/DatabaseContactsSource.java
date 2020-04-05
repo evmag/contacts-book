@@ -43,12 +43,15 @@ public class DatabaseContactsSource implements ContactsSource{
 
     @Override
     public boolean removeContact(Contact contact) {
-        return false;
+        return removeContact(contact.getId());
     }
 
     @Override
+    @Transactional
     public boolean removeContact(int contactId) {
-        return false;
+        return entityManger.createQuery("DELETE FROM Contact c WHERE id = ?1")
+                .setParameter(1, contactId)
+                .executeUpdate() == 1;
     }
 
     @Override
