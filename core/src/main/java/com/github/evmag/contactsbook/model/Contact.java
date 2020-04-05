@@ -2,10 +2,7 @@ package com.github.evmag.contactsbook.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,7 +11,8 @@ public class Contact {
     // === Fields ===
     @Id
     @Column(name = "id")
-    private int id = -1;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -102,11 +100,11 @@ public class Contact {
 
     // === Setters & Getters ===
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

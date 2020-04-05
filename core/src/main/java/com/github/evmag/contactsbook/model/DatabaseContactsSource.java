@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,14 +32,23 @@ public class DatabaseContactsSource implements ContactsSource{
 
     @Override
     public Contact getContact(int contactId) {
-        return entityManger.createQuery("SELECT c FROM Contact c WHERE id = ?1", Contact.class)
-                .setParameter(1, contactId)
-                .getSingleResult();
+        Contact result = null;
+        try {
+            result = entityManger.createQuery("SELECT c FROM Contact c WHERE id = ?1", Contact.class)
+                    .setParameter(1, contactId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // Ignore, function returns null if there is no result
+        }
+        return result;
     }
 
     @Override
+    @Transactional
     public int addContact(Contact contact) {
-        return 0;
+        contact.setId(null);
+        entityManger.persist(contact);
+        return contact.getId() ;
     }
 
     @Override
