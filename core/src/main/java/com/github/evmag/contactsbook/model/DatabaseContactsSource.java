@@ -31,7 +31,9 @@ public class DatabaseContactsSource implements ContactsSource{
 
     @Override
     public Contact getContact(int contactId) {
-        return null;
+        return entityManger.createQuery("SELECT c FROM Contact c WHERE id = ?1", Contact.class)
+                .setParameter(1, contactId)
+                .getSingleResult();
     }
 
     @Override
@@ -56,6 +58,6 @@ public class DatabaseContactsSource implements ContactsSource{
 
     @Override
     public int getContactsCount() {
-        return 0;
+        return getAllContacts().size();
     }
 }
