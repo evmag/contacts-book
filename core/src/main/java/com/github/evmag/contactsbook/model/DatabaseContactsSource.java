@@ -61,8 +61,14 @@ public class DatabaseContactsSource implements ContactsSource{
     }
 
     @Override
+    @Transactional
     public boolean editContact(Contact contactToEdit, Contact contactEdited) {
-        return false;
+        if (getContact(contactToEdit.getId()) == null || contactToEdit.getId() != contactEdited.getId()) {
+            return false;
+        } else {
+            entityManger.merge(contactEdited);
+            return true;
+        }
     }
 
     @Override
