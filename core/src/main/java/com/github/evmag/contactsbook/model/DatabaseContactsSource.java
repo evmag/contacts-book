@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -32,15 +31,7 @@ public class DatabaseContactsSource implements ContactsSource{
 
     @Override
     public Contact getContact(int contactId) {
-        Contact result = null;
-        try {
-            result = entityManger.createQuery("SELECT c FROM Contact c WHERE id = ?1", Contact.class)
-                    .setParameter(1, contactId)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            // Ignore, function returns null if there is no result
-        }
-        return result;
+        return entityManger.find(Contact.class, contactId);
     }
 
     @Override
@@ -59,9 +50,14 @@ public class DatabaseContactsSource implements ContactsSource{
     @Override
     @Transactional
     public boolean removeContact(int contactId) {
-        return entityManger.createQuery("DELETE FROM Contact c WHERE id = ?1")
-                .setParameter(1, contactId)
-                .executeUpdate() == 1;
+        Contact contact = getContact(contactId);
+
+        if (contact == null) {
+            return false;
+        } else {
+            entityManger.remove(contact);
+            return true;
+        }
     }
 
     @Override
