@@ -40,7 +40,7 @@
                     <a th:href="@{/edit(id=${contact.id})}">
                         <img th:src="@{/images/iconfinder_icon-136-document-edit_314724.png}" alt="Edit contact" style="max-height:24px">
                     </a>
-                    <a th:href="@{/remove(id=${contact.id})}">
+                    <a th:href="@{/remove(id=${contact.id})}" onclick='if (!(confirm("Do you want to delete contact?"))) return false'>
                         <img th:src="@{/images/iconfinder_icon-26-trash-can_314758.png}" alt="Delete contact" style="max-height:24px">
                     </a>
                 </td>
