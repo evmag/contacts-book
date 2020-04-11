@@ -38,7 +38,14 @@
                 <td><span th:text="${contact.email}">E-mail</span></td>
                 <td><span th:text="${contact.dateOfBirth}">Date Of Birth</span></td>
                 <td><span th:text="${contact.notes}">Notes</span></td>
-                <td><a th:href="@{/remove(id=${contact.id})}" class="w3-button w3-circle w3-blue">X</a></td>
+                <td>
+                    <a th:href="@{/edit(id=${contact.id})}">
+                        <img th:src="@{/images/iconfinder_icon-136-document-edit_314724.png}" alt="Edit contact" style="max-height:24px">
+                    </a>
+                    <a th:href="@{/remove(id=${contact.id})}">
+                        <img th:src="@{/images/iconfinder_icon-26-trash-can_314758.png}" alt="Delete contact" style="max-height:24px">
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
