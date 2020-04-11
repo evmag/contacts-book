@@ -13,8 +13,7 @@
     <form action="#" th:action="@{/process_contact}" th:object="${contact}" method="post" id="modifyContactForm" class="w3-container w3-card-4">
         <h2>Add/Modify contact</h2>
         <div>
-            <label for="id">Id</label>
-            <input class="w3-input" type="number" id="id" th:field="*{id}" readonly="true"/>
+            <input type="number" id="id" th:field="*{id}" hidden="true"/>
         </div>
         <div>
             <label for="firstName">First name</label>
